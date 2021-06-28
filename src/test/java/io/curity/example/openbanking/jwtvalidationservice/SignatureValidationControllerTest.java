@@ -33,7 +33,7 @@ public class SignatureValidationControllerTest {
     @Autowired
     private WebTestClient webClient;
 
-    private static String issuerJwks = "{" +
+    private static final String issuerJwks = "{" +
             "\"keys\": [" +
                 "{"+
                     "\"kty\": \"RSA\"," +
@@ -62,12 +62,8 @@ public class SignatureValidationControllerTest {
                 "}" +
             "]}";
 
-    private static String jwtSsa = "eyJraWQiOiJzaWduZXIiLCJhbGciOiJQUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJSZWd1bGF0b3J5IEJvZHkiLCJpYXQiOjE2NTU4MzUyODIsInNvZnR3YXJlX2lkIjoiZDA3NTU0ODktNGQ4YS00ZWZkLWFlZDAtN2RhMmJkM2Y4ZWRjIiwic29mdHdhcmVfY2xpZW50X2lkIjoiSk5BOXItZHVTNHVDekw4OXoiLCJzb2Z0d2FyZV9jbGllbnRfbmFtZSI6IlRlc3QgQ2xpZW50IDEiLCJzb2Z0d2FyZV9jbGllbnRfdXJpIjoiaHR0cHM6Ly9sb2NhbGhvc3QvdGVzdGNsaWVudCIsInNvZnR3YXJlX2xvZ29fdXJpIjoiaHR0cHM6Ly9sb2NhbGhvc3QiLCJzb2Z0d2FyZV90b3NfdXJpIjoiaHR0cHM6Ly9sb2NhbGhvc3QvdG9zIiwic29mdHdhcmVfcG9saWN5X3VyaSI6Imh0dHBzOi8vbG9jYWxob3N0L3BvbGljeSIsInNvZnR3YXJlX3JlZGlyZWN0X3VyaXMiOlsiaHR0cHM6Ly90cHAubG9jYWxob3N0L2NiIiwiaHR0cHM6Ly9sb2NhbGhvc3Q6ODQ0My90ZXN0L2NhbGxiYWNrIl0sInNvZnR3YXJlX2p3a3NfdXJpIjoiaHR0cHM6Ly9rZXlzdG9yZS5yZWd1bGF0b3J5LmJvZHkvYzZmNjk5N2MtMDc5ZC00ZmRjLTllZDctOWE2YjM0NTdhOTQyL2QwNzU1NDg5LTRkOGEtNGVmZC1hZWQwLTdkYTJiZDNmOGVkYy9hcHBsaWNhdGlvbi5qd2tzIiwic29mdHdhcmVfZW52aXJvbm1lbnQiOiJUZXN0Iiwic29mdHdhcmVfdmVyc2lvbiI6IjAuMTAiLCJzb2Z0d2FyZV9yb2xlcyI6WyJSb2xlMSIsIlJvbGUyIl0sIm9yZ19pZCI6ImM2ZjY5OTdjLTA3OWQtNGZkYy05ZWQ3LTlhNmIzNDU3YTk0MiIsIm9yZ19udW1iZXIiOiIxODcxNjc5ODQ3Iiwib3JnX25hbWUiOiJUZXN0aW5nIENvbXBhbnkifQ.DhuSG2Mdaekh1S0kvSiTVsfHiO20SUaUG3iTe16OnCNV1clLb7qSyI0AodTbfOzYKgELEdopz1cKSFDsmXb6kdF6n5CgDFGhU0P2oPMXM4GwnMGXwIyzsnzuNmESN0uZo8QngeA3WJs1Dr6nPXt_jubbttRrCYfGninxkrhWOT09UZOnADZ96j-9N-_wWs3gF6ZMaoWiDtXKDnWG7WSYbMSP1O91pcIQfud_0NHEC-s1qhtbUK1jCPfSk4DPoMdFEBiBxl8ED-fBk7I1NoepohtPgdReFrOEItwZFO7SdZlh75MaEgCXnfzsgi8tSJwUS7LF6-wUaSrNVYtpmO7iR35AT3qlTHU3KgtHKRTZ4Z48zPRK1dNOCCVGjf-Juv-TTz8t70piTIJrIMLOqnwsLdIuZzR1Ld5OrVv3AobNHSD2-eej1DHS3-Ed9dojiirb3VR07PyFucjMxHpNxZo4t6Epp27kmAMARjaxv7R7n9p7QoaOoq0tAIXxkBRpkKV_uOqluEF_S0hBSB1Jlo3mSM6GhGD6ZBqXuBsjwnqn9MnPcE-qQbTwCm2c-RFNvsQnbZSPAweBh8ADnYYzrVjgg9PnKwn4Q5se2g6YmZZFd2hXzl4mR_VILEVpEjfiPFgXD7EIeP0Gs6lIuMYTEqgTVrn94rzqtUEE_IYQbtk5Ink";
+    private static final String jwtSsa = "eyJraWQiOiJzaWduZXIiLCJhbGciOiJQUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJSZWd1bGF0b3J5IEJvZHkiLCJpYXQiOjE2NTU4MzUyODIsInNvZnR3YXJlX2lkIjoiZDA3NTU0ODktNGQ4YS00ZWZkLWFlZDAtN2RhMmJkM2Y4ZWRjIiwic29mdHdhcmVfY2xpZW50X2lkIjoiSk5BOXItZHVTNHVDekw4OXoiLCJzb2Z0d2FyZV9jbGllbnRfbmFtZSI6IlRlc3QgQ2xpZW50IDEiLCJzb2Z0d2FyZV9jbGllbnRfdXJpIjoiaHR0cHM6Ly9sb2NhbGhvc3QvdGVzdGNsaWVudCIsInNvZnR3YXJlX2xvZ29fdXJpIjoiaHR0cHM6Ly9sb2NhbGhvc3QiLCJzb2Z0d2FyZV90b3NfdXJpIjoiaHR0cHM6Ly9sb2NhbGhvc3QvdG9zIiwic29mdHdhcmVfcG9saWN5X3VyaSI6Imh0dHBzOi8vbG9jYWxob3N0L3BvbGljeSIsInNvZnR3YXJlX3JlZGlyZWN0X3VyaXMiOlsiaHR0cHM6Ly90cHAubG9jYWxob3N0L2NiIiwiaHR0cHM6Ly9sb2NhbGhvc3Q6ODQ0My90ZXN0L2NhbGxiYWNrIl0sInNvZnR3YXJlX2p3a3NfdXJpIjoiaHR0cHM6Ly9rZXlzdG9yZS5yZWd1bGF0b3J5LmJvZHkvYzZmNjk5N2MtMDc5ZC00ZmRjLTllZDctOWE2YjM0NTdhOTQyL2QwNzU1NDg5LTRkOGEtNGVmZC1hZWQwLTdkYTJiZDNmOGVkYy9hcHBsaWNhdGlvbi5qd2tzIiwic29mdHdhcmVfZW52aXJvbm1lbnQiOiJUZXN0Iiwic29mdHdhcmVfdmVyc2lvbiI6IjAuMTAiLCJzb2Z0d2FyZV9yb2xlcyI6WyJSb2xlMSIsIlJvbGUyIl0sIm9yZ19pZCI6ImM2ZjY5OTdjLTA3OWQtNGZkYy05ZWQ3LTlhNmIzNDU3YTk0MiIsIm9yZ19udW1iZXIiOiIxODcxNjc5ODQ3Iiwib3JnX25hbWUiOiJUZXN0aW5nIENvbXBhbnkifQ.DhuSG2Mdaekh1S0kvSiTVsfHiO20SUaUG3iTe16OnCNV1clLb7qSyI0AodTbfOzYKgELEdopz1cKSFDsmXb6kdF6n5CgDFGhU0P2oPMXM4GwnMGXwIyzsnzuNmESN0uZo8QngeA3WJs1Dr6nPXt_jubbttRrCYfGninxkrhWOT09UZOnADZ96j-9N-_wWs3gF6ZMaoWiDtXKDnWG7WSYbMSP1O91pcIQfud_0NHEC-s1qhtbUK1jCPfSk4DPoMdFEBiBxl8ED-fBk7I1NoepohtPgdReFrOEItwZFO7SdZlh75MaEgCXnfzsgi8tSJwUS7LF6-wUaSrNVYtpmO7iR35AT3qlTHU3KgtHKRTZ4Z48zPRK1dNOCCVGjf-Juv-TTz8t70piTIJrIMLOqnwsLdIuZzR1Ld5OrVv3AobNHSD2-eej1DHS3-Ed9dojiirb3VR07PyFucjMxHpNxZo4t6Epp27kmAMARjaxv7R7n9p7QoaOoq0tAIXxkBRpkKV_uOqluEF_S0hBSB1Jlo3mSM6GhGD6ZBqXuBsjwnqn9MnPcE-qQbTwCm2c-RFNvsQnbZSPAweBh8ADnYYzrVjgg9PnKwn4Q5se2g6YmZZFd2hXzl4mR_VILEVpEjfiPFgXD7EIeP0Gs6lIuMYTEqgTVrn94rzqtUEE_IYQbtk5Ink";
 
-    @Test
-    public void getJwks() {
-        webClient.get().uri("/jwks").exchange().expectStatus().isOk();
-    }
     @Test
     public void validateJwt() throws InvalidJwtException, JoseException {
         String validJwt = createJwt("Regulatory Body", "demo-key", Instant.now(Clock.systemUTC()), AlgorithmIdentifiers.RSA_PSS_USING_SHA256);
@@ -180,8 +176,7 @@ public class SignatureValidationControllerTest {
         jws.setAlgorithmHeaderValue(algorithm);
         jws.setKeyIdHeaderValue(kid);
 
-        String jwt = jws.getCompactSerialization();
-        return jwt;
+        return jws.getCompactSerialization();
     }
 
     // Retrieve key with kid from json web key set
