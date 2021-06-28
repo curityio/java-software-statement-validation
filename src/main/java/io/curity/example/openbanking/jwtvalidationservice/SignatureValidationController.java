@@ -8,6 +8,7 @@ import org.jose4j.jwt.consumer.JwtConsumer;
 import org.jose4j.jwt.consumer.JwtConsumerBuilder;
 import org.jose4j.keys.resolvers.HttpsJwksVerificationKeyResolver;
 import org.jose4j.lang.JoseException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -19,13 +20,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 public class SignatureValidationController {
 
-    String issuerName = "Regulatory Body";
-    String jwksUri = "http://localhost:8080/jwks";
+    @Value("${jwt.issuer:Regulatory Body}")
+    String issuerName;
+    @Value("${jwt.issuer.jwks_uri:http://localhost:8080/jwks}")
+    String jwksUri;
 
     @PostMapping(value = "/validate", consumes = MediaType.TEXT_PLAIN_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void validate(@RequestBody String tokenStr) throws InvalidJwtException {
-        // TODO: make configurable
         HttpsJwks httpsJkws = new HttpsJwks(jwksUri);
 
         // The HttpsJwksVerificationKeyResolver uses JWKs obtained from the HttpsJwks and will select the
