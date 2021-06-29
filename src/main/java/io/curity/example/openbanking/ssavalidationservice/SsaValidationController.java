@@ -21,19 +21,22 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class SsaValidationController {
 
     @Value("${jwt.issuer:Regulatory Body}")
-    String issuerName;
-    @Value("${jwt.issuer.jwks_uri:http://localhost:8080/jwks}")
-    String jwksUri;
+    private String issuerName;
+
+    private HttpsJwks httpsJwks;
+
+    public SsaValidationController(HttpsJwks httpsJwks) {
+        this.httpsJwks = httpsJwks;
+    }
 
     @PostMapping(value = "/validate", consumes = MediaType.TEXT_PLAIN_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void validate(@RequestBody String ssaStr) throws InvalidJwtException {
-        HttpsJwks httpsJkws = new HttpsJwks(jwksUri);
 
         // The HttpsJwksVerificationKeyResolver uses JWKs obtained from the HttpsJwks and will select the
         // most appropriate one to use for verification based on the kid and other factors provided
         // in the header of the JWS/JWT.
-        HttpsJwksVerificationKeyResolver jwksResolver = new HttpsJwksVerificationKeyResolver(httpsJkws);
+        HttpsJwksVerificationKeyResolver jwksResolver = new HttpsJwksVerificationKeyResolver(httpsJwks);
 
         JwtConsumer jwtConsumer = new JwtConsumerBuilder()
                 .setAllowedClockSkewInSeconds(30) // allow some leeway in validating time based claims to account for clock skew
