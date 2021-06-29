@@ -1,4 +1,4 @@
-package io.curity.example.openbanking.jwtvalidationservice;
+package io.curity.example.openbanking.ssavalidationservice;
 
 import org.jose4j.jwk.JsonWebKey;
 import org.jose4j.jwk.JsonWebKeySet;
@@ -26,9 +26,9 @@ import java.time.Clock;
 import java.time.Instant;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = JwtValidationServiceApplication.class)
-@WebFluxTest(controllers = SignatureValidationController.class)
-public class SignatureValidationControllerTest {
+@ContextConfiguration(classes = SsaValidationServiceApplication.class)
+@WebFluxTest(controllers = SsaValidationController.class)
+public class SsaValidationControllerTest {
 
     @Autowired
     private WebTestClient webClient;
@@ -146,7 +146,7 @@ public class SignatureValidationControllerTest {
                 .expectStatus().is4xxClientError();
     }
 
-    //https://bitbucket.org/b_c/jose4j/wiki/Home
+    // https://bitbucket.org/b_c/jose4j/wiki/Home
     private static String createJwt(String issuer, String kid, Instant iat, String algorithm) throws InvalidJwtException, JoseException {
 
         // Create the Claims, which will be the content of the JWT
@@ -156,10 +156,10 @@ public class SignatureValidationControllerTest {
                 .setSkipSignatureVerification()
                 .build();
 
-        //Load claims from old JWT
+        // Load claims from old JWT
         JwtClaims claims = consumer.processToClaims(jwtSsa);
 
-        //Update claims
+        // Update claims
         claims.setIssuer(issuer);
         NumericDate iatDate = NumericDate.fromMilliseconds(iat.toEpochMilli());
         claims.setIssuedAt(iatDate);

@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>io.curity.example.openbanking</groupId>
-    <artifactId>jwt-validation-service</artifactId>
+    <artifactId>software-statement-validation-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>jwt-validation-service</name>
+    <name>software-statement-validation-service</name>
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>16</java.version>

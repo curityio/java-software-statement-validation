@@ -1,4 +1,4 @@
-package io.curity.example.openbanking.jwtvalidationservice;
+package io.curity.example.openbanking.ssavalidationservice;
 
 import org.jose4j.jwk.JsonWebKeySet;
 import org.jose4j.jwt.consumer.InvalidJwtException;
@@ -17,7 +17,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import java.security.Key;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = JwtValidationServiceApplication.class)
+@ContextConfiguration(classes = SsaValidationServiceApplication.class)
 @WebFluxTest(controllers = MockController.class)
 class MockControllerTest {
 
@@ -39,7 +39,7 @@ class MockControllerTest {
     }
 
     @Test
-    void getJsonWebToken() throws JoseException {
+    void getSoftwareStatement() throws JoseException {
         String issuerPublicJwks = "{\"keys\": [" +
             "{" +
                 "\"kty\": \"RSA\"," +

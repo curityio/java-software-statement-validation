@@ -1,4 +1,4 @@
-package io.curity.example.openbanking.jwtvalidationservice;
+package io.curity.example.openbanking.ssavalidationservice;
 
 import org.jose4j.jwk.JsonWebKey;
 import org.jose4j.jwk.PublicJsonWebKey;
@@ -32,7 +32,7 @@ public class MockController {
     // Mock jwks endpoint
     @GetMapping(value = "/jwks", produces = "application/jwk-set+json")
     public ResponseEntity<Mono<String>> getJsonWebKeySet() {
-        //Demo test key
+        // Demo test key
         String issuerPublicJwks = "{\"keys\": [" +
                 "{" +
                 "\"kty\": \"RSA\"," +
@@ -46,7 +46,7 @@ public class MockController {
 
     // Mock software statement
     @GetMapping(value = "/softwarestatement", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Mono<String>> getJwt() throws JoseException {
+    public ResponseEntity<Mono<String>> getSoftwareStatement() throws JoseException {
         UUID softwareId = UUID.randomUUID();
         UUID orgId = UUID.randomUUID();
 
@@ -82,8 +82,8 @@ public class MockController {
         jws.setAlgorithmHeaderValue("PS256");
         jws.setKeyIdHeaderValue(signingKey.getKeyId());
 
-        // Sign and encode JWT
-        String jwt = jws.getCompactSerialization();
-        return ResponseEntity.ok(Mono.just(jwt));
+        // Sign and encode software statement assertion
+        String ssa = jws.getCompactSerialization();
+        return ResponseEntity.ok(Mono.just(ssa));
     }
 }

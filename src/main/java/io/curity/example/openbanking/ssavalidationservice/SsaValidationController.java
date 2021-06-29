@@ -1,4 +1,4 @@
-package io.curity.example.openbanking.jwtvalidationservice;
+package io.curity.example.openbanking.ssavalidationservice;
 
 import org.jose4j.jwa.AlgorithmConstraints;
 import org.jose4j.jwk.HttpsJwks;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
-public class SignatureValidationController {
+public class SsaValidationController {
 
     @Value("${jwt.issuer:Regulatory Body}")
     String issuerName;
@@ -27,7 +27,7 @@ public class SignatureValidationController {
 
     @PostMapping(value = "/validate", consumes = MediaType.TEXT_PLAIN_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void validate(@RequestBody String tokenStr) throws InvalidJwtException {
+    public void validate(@RequestBody String ssaStr) throws InvalidJwtException {
         HttpsJwks httpsJkws = new HttpsJwks(jwksUri);
 
         // The HttpsJwksVerificationKeyResolver uses JWKs obtained from the HttpsJwks and will select the
@@ -43,7 +43,7 @@ public class SignatureValidationController {
                 .setJwsAlgorithmConstraints( // restrict the algorithms in the given context
                         AlgorithmConstraints.ConstraintType.PERMIT, AlgorithmIdentifiers.RSA_PSS_USING_SHA256) // only PS256 is allowed here
                 .build(); // create the JwtConsumer instance
-        jwtConsumer.processToClaims(tokenStr);
+        jwtConsumer.processToClaims(ssaStr);
     }
 
 

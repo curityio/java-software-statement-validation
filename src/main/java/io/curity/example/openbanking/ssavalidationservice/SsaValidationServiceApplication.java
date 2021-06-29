@@ -1,4 +1,4 @@
-package io.curity.example.openbanking.jwtvalidationservice;
+package io.curity.example.openbanking.ssavalidationservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 
 @SpringBootApplication(
         exclude = { SecurityAutoConfiguration.class })
-public class JwtValidationServiceApplication {
+public class SsaValidationServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(JwtValidationServiceApplication.class, args);
+        SpringApplication.run(SsaValidationServiceApplication.class, args);
     }
 
 }
